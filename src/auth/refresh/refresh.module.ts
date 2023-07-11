@@ -1,13 +1,9 @@
 import { Module } from '@nestjs/common';
 import { JwtModule, JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
-import { RefreshService } from "./refresh.service";
-import { UserModule } from "../userInfo/user.module";
-import { refreshController } from "./refresh.controller";
 
 @Module({
   imports: [
-    UserModule,
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => {
         return {
@@ -18,14 +14,12 @@ import { refreshController } from "./refresh.controller";
       inject: [ConfigService],
     })
   ],
-  controllers: [refreshController],
   providers: [
-    RefreshService,
     {
       provide: 'REFRESH_JWT_SERVICE',
       useExisting: JwtService,
     },
   ],
-  exports: [RefreshService]
+  exports:['REFRESH_JWT_SERVICE']
 })
 export class RefreshModule {}

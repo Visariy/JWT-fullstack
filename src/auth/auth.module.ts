@@ -5,7 +5,9 @@ import { JwtModule, JwtService } from "@nestjs/jwt";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { AuthGuard } from "./auth.guard";
 import { AuthController } from "./auth.controller";
-import { RefreshModule } from "../refresh/refresh.module";
+import { RefreshModule } from "./refresh/refresh.module";
+import { RefreshService } from "./refresh/refresh.service";
+import { RefreshGuard } from "./refresh/refresh.guard";
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { RefreshModule } from "../refresh/refresh.module";
   providers: [
     AuthService,
     AuthGuard,
+    RefreshService,
+    RefreshGuard,
     {
       provide: 'ACCESS_JWT_SERVICE',
       useExisting: JwtService,

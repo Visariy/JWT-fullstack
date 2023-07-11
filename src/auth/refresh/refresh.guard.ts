@@ -1,13 +1,15 @@
 import { CanActivate, ExecutionContext, Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Request } from "express";
+import { RefreshService } from "./refresh.service";
 
 @Injectable()
 export class RefreshGuard implements CanActivate {
 
   constructor(
     @Inject('REFRESH_JWT_SERVICE')
-    private jwtService: JwtService
+    private jwtService: JwtService,
+    private refreshService: RefreshService
   ) {}
 
   public extractTokenFromHeader(request: Request): string | undefined {
@@ -20,6 +22,9 @@ export class RefreshGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
     console.log(this.jwtService);
     if(!token) {
+      throw new UnauthorizedException();
+    }
+    if(this.refreshService.isRevoked(token)) {
       throw new UnauthorizedException();
     }
     try {

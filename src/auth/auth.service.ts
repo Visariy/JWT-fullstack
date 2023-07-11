@@ -1,7 +1,7 @@
 import { ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import * as bscrypt from "bcrypt";
 import { UserService } from "../userInfo/user.service";
-import { RefreshService } from "../refresh/refresh.service";
+import { RefreshService } from "./refresh/refresh.service";
 import { JwtService } from "@nestjs/jwt";
 import { Payload } from "../dto/payload.dto";
 
@@ -20,13 +20,9 @@ export class AuthService {
         if(checkPass === false) {
             throw new UnauthorizedException();
         }
-        const payload: Payload = { id: user.id, email: user.email, refreshToken: user.refreshToken };
+        const payload: Payload = { id: user.id, email: user.email };
 
-        return{
-            access_token: await this.generateAccessToken(payload),
-            refresh_token: await this.refreshService.generateRefreshToken(payload),
-            userInfo: await user
-        };
+        return await this.generateTokens(payload, user.refreshToken)
     }
 
     async logOut(id: number) {
@@ -42,18 +38,26 @@ export class AuthService {
         return this.jwtService.signAsync(payload);
     }
 
-    async generateTokens(payload: Payload) {
+    async generateTokens(payload: Payload, refreshToken: string) {
+
+      const correctPayload = { id: payload.id, email: payload.email }
+
+      console.log("Payload", refreshToken);
+
+      this.refreshService.revokeToken(refreshToken);
+
         return {
-           access_token: await this.generateAccessToken(payload),
-           refresh_token: await this.refreshService.generateRefreshToken(payload)
+           access_token: await this.generateAccessToken(correctPayload),
+           refresh_token: await this.refreshService.generateRefreshToken(correctPayload)
         }
     }
 
     async refreshTokens(payload: Payload) {
-        const user = await this.userService.getUserByMail(payload.email);
-        if(!user.refreshToken) {
+
+        if(payload.refreshToken) {
           throw new UnauthorizedException();
         }
-        return await this.generateTokens(payload)
+
+        return await this.generateTokens(payload, payload.refreshToken)
     }
 }
