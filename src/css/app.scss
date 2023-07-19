@@ -1,0 +1,11 @@
+// app global css in SCSS form
+html,
+body,
+#q-app {
+  height: 100%;
+  background-color: $dark-page;
+}
+
+textarea {
+  resize: none !important;
+}
