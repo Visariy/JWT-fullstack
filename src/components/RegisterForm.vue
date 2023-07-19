@@ -121,7 +121,7 @@ const submit = async () => {
     const result = await v$.value.$validate();
     if (result) {
       const response = await authStore.getUserByEmail(user.email);
-      if (response.data === undefined) {
+      if (response === undefined) {
         isUserExist.value = true;
       } else {
         await authStore.register(user.email, user.password);
