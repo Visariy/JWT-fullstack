@@ -34,6 +34,8 @@ export class AuthService {
         }
     }
 
+
+
    async generateAccessToken(payload: Payload) {
         return this.jwtService.signAsync(payload);
     }
@@ -41,8 +43,6 @@ export class AuthService {
     async generateTokens(payload: Payload, refreshToken: string) {
 
       const correctPayload = { id: payload.id, email: payload.email }
-
-      console.log("Payload", refreshToken);
 
       this.refreshService.revokeToken(refreshToken);
 

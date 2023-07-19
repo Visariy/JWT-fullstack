@@ -12,15 +12,22 @@ export class RefreshGuard implements CanActivate {
     private refreshService: RefreshService
   ) {}
 
-  public extractTokenFromHeader(request: Request): string | undefined {
-    const [type, token] = request.headers.authorization?.split(' ') ?? [];
-    return type === 'Bearer' ? token : undefined;
+  public extractTokenFromCookie(request: Request): any {
+      const arr = (request.headers.cookie.split(';'));
+      let refreshToken = ''
+      for(let i = 0; i < arr.length; i++) {
+        const [type, token] = arr[i].split('=')
+        if(type.trim() === 'refreshToken') {
+          refreshToken = token
+          break;
+        }
+      }
+      return refreshToken
   }
 
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
-    const token = this.extractTokenFromHeader(request);
-    console.log(this.jwtService);
+    const token = this.extractTokenFromCookie(request);
     if(!token) {
       throw new UnauthorizedException();
     }
@@ -29,7 +36,6 @@ export class RefreshGuard implements CanActivate {
     }
     try {
       request['user'] = await this.jwtService.verifyAsync(token);
-      console.log(request['user'])
     } catch {
       throw new UnauthorizedException();
     }

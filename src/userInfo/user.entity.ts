@@ -12,9 +12,21 @@ export class User {
     @Column()
     password: string;
 
-    @Column('text')
-    description: string;
-
     @Column('text', { nullable: true })
     refreshToken: string;
+
+    @Column('text', { nullable: true })
+    firstName?: string;
+
+    @Column('text', { nullable: true })
+    lastName?: string;
+
+    @Column('text', { nullable: true })
+    number?: string;
+
+    @Column('text', { nullable: true })
+    address?: string;
+
+    @Column('text', { nullable: true })
+    description?: string;
 }

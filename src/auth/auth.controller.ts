@@ -5,6 +5,7 @@ import { UserService } from "../userInfo/user.service";
 import { AuthUser } from "../dto/authUser.dto";
 import { UpdateUser } from "../dto/updateUser.dto";
 import { RefreshGuard } from "./refresh/refresh.guard";
+import { userInfo } from "os";
 
 @Controller('auth')
 export class AuthController {
@@ -14,8 +15,8 @@ export class AuthController {
   @Post('login')
   async signIn(@Body() authData: AuthUser, @Response() res) {
     const tokens = await this.authService.signIn(authData.email, authData.password);
-    res.cookie('refreshToken', tokens.refresh_token, { httpOnly: true });
-    res.json( { access_token: tokens.access_token });
+    res.cookie('refreshToken', tokens.refresh_token, {httpOnly: true})
+    res.json({ accessToken: tokens.access_token, refreshToken: tokens.refresh_token, userInfo: authData.email })
   }
 
   @UseGuards(AuthGuard)
@@ -31,7 +32,23 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard)
-  @Post('delete')
+  @Get('user')
+  async getUserById(@Request() req) {
+    const response = await this.userService.getUserById(Number(req.user.id))
+    const user = {
+      email: response.email,
+      firstName: response.firstName,
+      lastName: response.lastName,
+      description: response.description,
+      address: response.address,
+      number: response.number
+    }
+    return user
+  }
+
+
+  @UseGuards(AuthGuard)
+  @Get('delete')
   deleteUser(@Request() req) {
     return this.userService.deleteUserById(req.user.id);
   }
@@ -41,6 +58,6 @@ export class AuthController {
   async refreshToken(@Request() req, @Response() res) {
     const tokens = await this.authService.refreshTokens(req.user)
     res.cookie('refreshToken', tokens.refresh_token, { httpOnly: true });
-    res.json( { access_token: tokens.access_token });
+    res.json( { accessToken: tokens.access_token });
   }
 }

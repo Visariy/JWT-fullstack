@@ -3,6 +3,7 @@ import { Repository } from "typeorm";
 import { User } from "./user.entity";
 import { CreateUser } from "../dto/createUser.dto";
 import { UpdateUser } from "../dto/updateUser.dto";
+import { publicUserInfo } from "../dto/publicUser.dto";
 
 @Injectable()
 export class UserService {
@@ -38,16 +39,16 @@ export class UserService {
     async getUserByMail(email: string): Promise<User> {
         const findedUser = this.userRepository.findOne({where: {email}});
         if(findedUser) {
-            return findedUser;
+            return findedUser
         } else {
             throw new HttpException('User with this email not found', HttpStatus.NOT_FOUND);
         }
     }
 
     async getUserById(id: number): Promise<User> {
-        const findedUser = this.userRepository.findOne({where: {id}})
+        const findedUser: Promise<User> = this.userRepository.findOne({where: {id}})
         if(findedUser) {
-            return findedUser
+           return findedUser
         } else {
             throw new HttpException('User not found', HttpStatus.NOT_FOUND);
         }

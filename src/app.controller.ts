@@ -8,16 +8,6 @@ import { AuthUser } from "./dto/authUser.dto";
 export class AppController {
   constructor(private readonly appService: AppService, private readonly authService: AuthService) {}
 
-  @Get('users')
-  getUsers() {
-    return this.appService.getUsers();
-  }
-
-  @Get(':id')
-  getUserById(@Param('id') id: string) {
-    return this.appService.getUserById(Number(id))
-  }
-
   @Post('mail')
   async getUserByMail(@Body('email') mail: string) {
     return this.appService.getUserByMail(mail);
