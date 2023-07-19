@@ -269,7 +269,6 @@ const userInfo = reactive({
 });
 
 watch(isLoading, () => {
-  console.log(isLoading.value);
   if (isLoading.value) {
     userInfo.email = stateUserInfo.value.email;
     userInfo.firstName = stateUserInfo.value.firstName;
@@ -295,7 +294,6 @@ const v$ = useVuelidate(editRules, userInfo);
 const submit = async () => {
   try {
     validationResult = await v$.value.$validate();
-    console.log(validationResult);
     if (validationResult) {
       const response = await authStore.update(userInfo);
       if (response?.status !== 401) {
