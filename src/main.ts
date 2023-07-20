@@ -7,7 +7,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe())
   dotenv.config();
   app.enableCors({
-    origin: 'http://localhost:8080',
+    origin: 'https://jwt-front-987i.onrender.com',
     credentials: true
   });
   await app.listen(3000);
