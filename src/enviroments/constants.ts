@@ -1,3 +1,3 @@
 export class EnviromentSettings {
-  public static API_URL = 'http://localhost:3000';
+  public static API_URL = 'https://jwt-back-wjat.onrender.com';
 }
