@@ -1,10 +1,13 @@
-import { IsEmail } from "class-validator";
+import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
 
 export class CreateUser {
 
     @IsEmail()
+    @IsNotEmpty()
     email: string;
 
+    @IsNotEmpty()
+    @MinLength(4)
     password: string;
 
     refreshToken: string;

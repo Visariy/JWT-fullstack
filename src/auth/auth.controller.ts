@@ -1,16 +1,14 @@
-import { Controller, Get, Param, Post, Body, Put, Delete, UseGuards, Request, Response, HttpException } from "@nestjs/common";
+import { Controller, Get, Post, Body, UseGuards, Request, Response } from "@nestjs/common";
 import { AuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
 import { UserService } from "../userInfo/user.service";
 import { AuthUser } from "../dto/authUser.dto";
 import { UpdateUser } from "../dto/updateUser.dto";
 import { RefreshGuard } from "./refresh/refresh.guard";
-import { userInfo } from "os";
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService, private userService: UserService) {}
-
 
   @Post('login')
   async signIn(@Body() authData: AuthUser, @Response() res) {
@@ -45,7 +43,6 @@ export class AuthController {
     }
     return user
   }
-
 
   @UseGuards(AuthGuard)
   @Get('delete')

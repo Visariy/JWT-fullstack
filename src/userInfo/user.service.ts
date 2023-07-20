@@ -3,7 +3,6 @@ import { Repository } from "typeorm";
 import { User } from "./user.entity";
 import { CreateUser } from "../dto/createUser.dto";
 import { UpdateUser } from "../dto/updateUser.dto";
-import { publicUserInfo } from "../dto/publicUser.dto";
 
 @Injectable()
 export class UserService {

@@ -1,16 +1,20 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
 import { IsMobilePhone, IsNotEmpty, MaxLength } from "class-validator";
 
 export class UpdateUser {
     refreshToken?: string;
 
-    firstName?: string;
+    @IsNotEmpty()
+    firstName: string;
 
-    lastName?: string;
+    @IsNotEmpty()
+    lastName: string;
 
-    number?: string;
+    @IsMobilePhone()
+    number: string;
 
+    @IsNotEmpty()
     address?: string;
 
+    @MaxLength(100)
     description?: string;
 }

@@ -1,12 +1,10 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
-import { AuthService } from "./auth/auth.service";
 import { CreateUser } from "./dto/createUser.dto";
-import { AuthUser } from "./dto/authUser.dto";
 
 @Controller("public")
 export class AppController {
-  constructor(private readonly appService: AppService, private readonly authService: AuthService) {}
+  constructor(private readonly appService: AppService) {}
 
   @Post('mail')
   async getUserByMail(@Body('email') mail: string) {

@@ -5,7 +5,6 @@ import {UserModule} from "./userInfo/user.module";
 import {HashPasswordMiddleware} from "./hash-password/hash-password.middleware";
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from "@nestjs/config";
-import { AuthController } from "./auth/auth.controller";
 import { RefreshModule } from './auth/refresh/refresh.module';
 
 @Module({
