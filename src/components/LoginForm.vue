@@ -111,6 +111,9 @@ const submit = async () => {
         break;
       case 500:
         isUserExist.value = false;
+        break
+      case 401:
+        isUserExist.value = false;
     }
     setTimeout(() => {
       if (serverErrorMessage.value) {

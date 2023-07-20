@@ -120,16 +120,15 @@ const submit = async () => {
   try {
     const result = await v$.value.$validate();
     if (result) {
-      const response = await authStore.getUserByEmail(user.email);
-      if (response !== undefined) {
-        isUserExist.value = true;
+      const response = await authStore.register(user.email, user.password);
+      if(response.status === 500 ) {
+        isUserExist.value = true
       } else {
-        await authStore.register(user.email, user.password);
-        await router.push('/login');
+        await router.push('/login')
       }
     }
   } catch (e) {
     console.log(e);
   }
-};
+}
 </script>

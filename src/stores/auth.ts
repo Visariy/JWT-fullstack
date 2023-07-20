@@ -33,15 +33,6 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async getUserByEmail(email: string) {
-      try {
-        const response = await AuthService.getUserByEmail(email);
-        return response.data.email;
-      } catch (e) {
-        console.log(e);
-      }
-    },
-
     async login(email: string, password: string) {
       try {
         const response = await AuthService.login(email, password);
@@ -59,7 +50,8 @@ export const useAuthStore = defineStore('auth', {
       try {
         return await AuthService.registration(email, password);
       } catch (e) {
-        console.log(e);
+        const error = e as AxiosError
+        return error.response
       }
     },
 
