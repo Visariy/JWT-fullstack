@@ -13,7 +13,9 @@ export class AuthController {
   @Post('login')
   async login(@Body() authData: AuthUser, @Response() res) {
     const tokens = await this.authService.login(authData.email, authData.password);
-    res.cookie('refreshToken', tokens.refresh_token, {httpOnly: true, secure: true})
+    res.cookie('refreshToken', tokens.refresh_token, { httpOnly: true, 
+                                                      secure: true, 
+                                                      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000) })
     res.json({ accessToken: tokens.access_token, refreshToken: tokens.refresh_token, userInfo: authData.email })
   }
 
