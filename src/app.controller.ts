@@ -8,7 +8,8 @@ export class AppController {
 
   @Post('mail')
   async getUserByMail(@Body('email') mail: string) {
-    return this.appService.getUserByMail(mail);
+    const response = await this.appService.getUserByMail(mail);
+    return response.email
   }
 
   @Post()

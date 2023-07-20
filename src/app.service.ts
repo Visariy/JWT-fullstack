@@ -12,8 +12,7 @@ export class AppService {
   }
 
   async getUserByMail(mail: string) {
-    const response = await this.userService.getUserByMail(mail);
-    return response.email
+    return await this.userService.getUserByMail(mail);
   }
 
 }
