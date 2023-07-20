@@ -11,8 +11,4 @@ export class AppService {
       return this.userService.createUser(user);
   }
 
-  async getUserByMail(mail: string) {
-    return await this.userService.getUserByMail(mail);
-  }
-
 }

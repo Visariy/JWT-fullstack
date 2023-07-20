@@ -12,7 +12,6 @@ export class UserService {
        private userRepository: Repository<User>,
     ) {}
 
-
     async updateUserInfo(id: number, user: UpdateUser): Promise<User> {
         await this.userRepository.update(id, user);
         const updatedUser = await this.userRepository.findOne({ where: { id } });
@@ -57,7 +56,4 @@ export class UserService {
         await this.userRepository.update(id, { refreshToken: null });
     }
 
-    async findAllUsers(): Promise<User[]> {
-        return this.userRepository.find();
-    }
 }

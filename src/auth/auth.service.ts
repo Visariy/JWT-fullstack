@@ -14,7 +14,7 @@ export class AuthService {
         private refreshService: RefreshService
     ) {}
 
-    async signIn(email: string, pass: string) {
+    async login(email: string, pass: string) {
         const user = await this.userService.getUserByMail(email)
         const checkPass = await bscrypt.compare(pass, user?.password)
         if(checkPass === false) {

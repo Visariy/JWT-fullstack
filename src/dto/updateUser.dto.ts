@@ -1,4 +1,4 @@
-import { IsMobilePhone, IsNotEmpty, MaxLength } from "class-validator";
+import { IsNotEmpty, MaxLength } from "class-validator";
 
 export class UpdateUser {
     refreshToken?: string;
@@ -9,12 +9,10 @@ export class UpdateUser {
     @IsNotEmpty()
     lastName: string;
 
-    @IsMobilePhone()
     number: string;
 
     @IsNotEmpty()
     address?: string;
 
-    @MaxLength(100)
     description?: string;
 }

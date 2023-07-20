@@ -11,8 +11,8 @@ export class AuthController {
   constructor(private authService: AuthService, private userService: UserService) {}
 
   @Post('login')
-  async signIn(@Body() authData: AuthUser, @Response() res) {
-    const tokens = await this.authService.signIn(authData.email, authData.password);
+  async login(@Body() authData: AuthUser, @Response() res) {
+    const tokens = await this.authService.login(authData.email, authData.password);
     res.cookie('refreshToken', tokens.refresh_token, {httpOnly: true})
     res.json({ accessToken: tokens.access_token, refreshToken: tokens.refresh_token, userInfo: authData.email })
   }
