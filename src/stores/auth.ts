@@ -98,7 +98,7 @@ export const useAuthStore = defineStore('auth', {
         await this.getUserInfo();
         this.setLoading(false);
       } catch (e) {
-        console.log(e);
+        throw e
       }
     },
   },
