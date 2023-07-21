@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import TestForm from 'components/RegisterForm.vue';
+import TestForm from 'src/components/RegisterForm.vue';
 </script>
 
 <style lang="scss" scoped>

@@ -1,14 +1,14 @@
 import { RouteRecordRaw } from 'vue-router';
-import MainLayout from 'layouts/MainLayout.vue';
-import RegistrationPage from 'pages/RegistrationPage.vue';
-import LoginPage from 'pages/LoginPage.vue';
-import ProfilePage from 'pages/ProfilePage.vue';
-import EditPage from 'pages/EditPage.vue';
+import MainLayout from 'src/layouts/MainLayout.vue';
+import RegistrationPage from 'src/pages/RegistrationPage.vue';
+import LoginPage from 'src/pages/LoginPage.vue';
+import ProfilePage from 'src/pages/ProfilePage.vue';
+import EditPage from 'src/pages/EditPage.vue';
 import AuthService from 'src/services/AuthService';
-import { api } from 'boot/axios';
+import { api } from 'src/boot/axios';
 import IAuth from 'src/interfaces/AuthModel';
 import { AxiosResponse } from 'axios';
-import { useAuthStore } from 'stores/auth';
+import { useAuthStore } from 'src/stores/auth';
 
 api.interceptors.request.use((config) => {
   if (config.url !== '/auth/refresh' && localStorage.getItem('accessToken')) {
@@ -95,7 +95,7 @@ const routes: RouteRecordRaw[] = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue'),
+    component: () => import('src/pages/ErrorNotFound.vue'),
   },
 ];
 

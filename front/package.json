@@ -6,8 +6,8 @@
   "author": "Visariy <nikongb2@yandex.ru>",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .js,.ts,.vue ./",
-    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "lint": "eslint --ext .js,.ts,.vue ..",
+    "format": "prettier --write \\\"**/*.{js,ts,vue,scss,html,md,json}\\\" --ignore-path .gitignore",
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "prod": "node dist/spa/js/app.644377a8",

@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers';
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance } from 'src/boot/axios';
 import { EnviromentSettings } from 'src/enviroments/constants';
 
 declare module '@vue/runtime-core' {

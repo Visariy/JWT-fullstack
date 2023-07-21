@@ -232,11 +232,11 @@
 
 <script setup lang="ts">
 import { computed, reactive, watch } from 'vue';
-import { useAuthStore } from 'stores/auth';
+import { useAuthStore } from 'src/stores/auth';
 import { useRouter } from 'vue-router';
 import useVuelidate from '@vuelidate/core';
 import { required, minLength, maxLength } from '@vuelidate/validators';
-import { useValidateStore } from 'stores/validate';
+import { useValidateStore } from 'src/stores/validate';
 
 const router = useRouter();
 

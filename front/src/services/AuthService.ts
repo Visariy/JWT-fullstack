@@ -1,5 +1,5 @@
 import { IUser } from 'src/interfaces/UserModel';
-import { api } from 'boot/axios';
+import { api } from 'src/boot/axios';
 import { AxiosResponse } from 'axios';
 import IAuth from 'src/interfaces/AuthModel';
 
